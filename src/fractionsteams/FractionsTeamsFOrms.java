@@ -40,6 +40,8 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
                 bw.newLine();
             }
 
+            
+            System.out.println("The students file has been initilialised!");
             bw.close();
         }
         catch(Exception e){
