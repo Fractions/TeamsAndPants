@@ -1,0 +1,2 @@
+-Get all members to create github accounts, and to join the fractions organization
+- Import their code into the repositories I have made for them
