@@ -23,7 +23,12 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     
   
     public FractionsTeamsFOrms() {
-        initComponents();
+        initComponents(); // don't put anything before this!
+        
+        //panels!
+        studentPanel.setVisible(false);
+        // end panels
+        
         readStudentInfo();
         setColours();
     }
@@ -71,7 +76,6 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
             line = br.readLine();
             students[i] = line;
             i++;
-            System.out.println(""+i);
         }
         br.close();
         
@@ -99,25 +103,17 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        readButton = new javax.swing.JButton();
+        colourButton = new javax.swing.JButton();
+        studentButton = new javax.swing.JLabel();
+        studentPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentsText = new javax.swing.JTextArea();
-        studentInitButton = new javax.swing.JButton();
-        readButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        saveStudentButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fraction Interaction");
-
-        studentsText.setColumns(20);
-        studentsText.setRows(5);
-        jScrollPane1.setViewportView(studentsText);
-
-        studentInitButton.setText("Student inti");
-        studentInitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentInitButtonActionPerformed(evt);
-            }
-        });
 
         readButton.setText("Read FIle");
         readButton.addActionListener(new java.awt.event.ActionListener() {
@@ -126,64 +122,119 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Random Colour!");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        colourButton.setText("Random Colour!");
+        colourButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                colourButtonActionPerformed(evt);
             }
         });
+
+        studentButton.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        studentButton.setForeground(new java.awt.Color(51, 255, 51));
+        studentButton.setText("Initialise Student List");
+        studentButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentButtonMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setText("Enter Student Names - One per line!");
+
+        studentsText.setColumns(20);
+        studentsText.setRows(5);
+        jScrollPane1.setViewportView(studentsText);
+
+        saveStudentButton.setText("Save Student Data");
+        saveStudentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveStudentButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout studentPanelLayout = new javax.swing.GroupLayout(studentPanel);
+        studentPanel.setLayout(studentPanelLayout);
+        studentPanelLayout.setHorizontalGroup(
+            studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(studentPanelLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addGroup(studentPanelLayout.createSequentialGroup()
+                        .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(saveStudentButton)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        studentPanelLayout.setVerticalGroup(
+            studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(studentPanelLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(saveStudentButton)
+                .addContainerGap(187, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(studentInitButton))
+                        .addGap(21, 21, 21)
+                        .addComponent(studentButton)
+                        .addGap(65, 65, 65)
+                        .addComponent(readButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(readButton)))
-                .addContainerGap(193, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(89, 89, 89))
+                        .addGap(103, 103, 103)
+                        .addComponent(studentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 399, Short.MAX_VALUE)
+                .addComponent(colourButton))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(96, 96, 96)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(readButton)
-                        .addGap(59, 59, 59)
-                        .addComponent(studentInitButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(87, 87, 87))
+                        .addGap(77, 77, 77)
+                        .addComponent(colourButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(16, Short.MAX_VALUE)
+                        .addComponent(studentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(readButton))
+                .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void studentInitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentInitButtonActionPerformed
+    private void saveStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStudentButtonActionPerformed
         studentInit();
         
-    }//GEN-LAST:event_studentInitButtonActionPerformed
+    }//GEN-LAST:event_saveStudentButtonActionPerformed
 
     private void readButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readButtonActionPerformed
         readStudentInfo();
     }//GEN-LAST:event_readButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void colourButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colourButtonActionPerformed
         defaultColours = false;
         setColours();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_colourButtonActionPerformed
+
+    private void studentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentButtonMouseClicked
+        studentPanel.setVisible(true);
+        studentPanel.requestFocusInWindow();
+    }//GEN-LAST:event_studentButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -220,10 +271,13 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton colourButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton readButton;
-    private javax.swing.JButton studentInitButton;
+    private javax.swing.JButton saveStudentButton;
+    private javax.swing.JLabel studentButton;
+    private javax.swing.JPanel studentPanel;
     private javax.swing.JTextArea studentsText;
     // End of variables declaration//GEN-END:variables
 }
