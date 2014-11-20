@@ -1,25 +1,31 @@
 
 package fractionsteams;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Random;
 
+//Let's be productive
 
 public class FractionsTeamsFOrms extends javax.swing.JFrame {
 
-   //use this after students have been read so we know how many there are 
-    //String [] studetns = new String [];
     
     //VARIABLE DECLARATION
     String [] students;
+    Random gen = new Random();
+    Color primary;
+    Color secondary;
+    boolean defaultColours = true;
     
   
     public FractionsTeamsFOrms() {
         initComponents();
         readStudentInfo();
+        setColours();
     }
     
     public void studentInit(){
@@ -73,6 +79,20 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
             e.printStackTrace();
         }   
     }
+    
+    public void setColours(){
+        if(defaultColours == true){
+            primary = new Color(30, 144, 255);//find RGB for school colours. I think blue and gold.
+            secondary = new Color(238, 221, 130);
+        }
+        else{
+            primary = new Color(gen.nextInt(256), gen.nextInt(256), gen.nextInt(256)); //  random for now, will change later.
+            secondary = new Color(gen.nextInt(256), gen.nextInt(256), gen.nextInt(256));
+        }
+
+        //this.getContentPane().setForeground(primary); //what is the foregroud?
+        this.getContentPane().setBackground(primary);
+    }
 
    
     @SuppressWarnings("unchecked")
@@ -82,9 +102,11 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         studentsText = new javax.swing.JTextArea();
         studentInitButton = new javax.swing.JButton();
+        readButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Fraction Interaction");
 
         studentsText.setColumns(20);
         studentsText.setRows(5);
@@ -97,7 +119,14 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Read FIle");
+        readButton.setText("Read FIle");
+        readButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readButtonActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Random Colour!");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -117,16 +146,22 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
                         .addComponent(studentInitButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(168, 168, 168)
-                        .addComponent(jButton1)))
+                        .addComponent(readButton)))
                 .addContainerGap(193, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(309, Short.MAX_VALUE)
+                .addContainerGap(190, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(96, 96, 96)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(readButton)
                         .addGap(59, 59, 59)
                         .addComponent(studentInitButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -141,8 +176,13 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         
     }//GEN-LAST:event_studentInitButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void readButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readButtonActionPerformed
         readStudentInfo();
+    }//GEN-LAST:event_readButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        defaultColours = false;
+        setColours();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -182,6 +222,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton readButton;
     private javax.swing.JButton studentInitButton;
     private javax.swing.JTextArea studentsText;
     // End of variables declaration//GEN-END:variables
