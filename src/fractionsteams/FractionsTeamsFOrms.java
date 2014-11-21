@@ -24,13 +24,16 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
   
     public FractionsTeamsFOrms() {
         initComponents(); // don't put anything before this!
+        setColours();
         
         //panels!
         studentPanel.setVisible(false);
+        studentPanel.setBackground(secondary);
+        
         // end panels
         
         readStudentInfo();
-        setColours();
+        
     }
     
     public void studentInit(){
@@ -86,8 +89,8 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     
     public void setColours(){
         if(defaultColours == true){
-            primary = new Color(30, 144, 255);//find RGB for school colours. I think blue and gold.
-            secondary = new Color(238, 221, 130);
+            primary = new Color(0, 0, 128);//find RGB for school colours. I think blue and gold.
+            secondary = new Color(128, 0, 0);
         }
         else{
             primary = new Color(gen.nextInt(256), gen.nextInt(256), gen.nextInt(256)); //  random for now, will change later.
