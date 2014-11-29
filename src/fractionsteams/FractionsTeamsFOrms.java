@@ -33,6 +33,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         // end panels
         
         readStudentInfo();
+        primeNumberGenerator();
         
     }
     
@@ -101,6 +102,38 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         this.getContentPane().setBackground(primary);
     }
 
+    public void primeNumberGenerator(){
+        // THIS IS NOT DONE... I haven't yet said which are true for prime!
+        //this is not necessary for program, just wanted to wrtie this in java and python
+        
+        
+        int interval = 1000; //what were searching through
+        int primeTally = 0;
+        int [] primes = new int[1000]; // how do we get the array to adapt to how many we need?
+        
+        boolean[] isPrime = new boolean[interval];
+        
+      
+        
+        for(int i = 1; i < interval; i++){ //start at one since we know 0 is not prime
+            for(int j = 1; j < interval; j++){ // start at one since we can never divide by zero
+                //check if i is divisible by any number in the interval
+                if((i%j == 0)&&(i!=1)&&(i!=i)){
+                    isPrime[i] = false;
+                }
+            }
+            if(isPrime[i]!= false){
+                    isPrime[i] = true;
+                    primeTally++;
+                    primes[primeTally] = i;
+                    System.out.println("The number "+i+" is prime"); 
+            }
+                    
+                
+        }
+        
+        
+    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
