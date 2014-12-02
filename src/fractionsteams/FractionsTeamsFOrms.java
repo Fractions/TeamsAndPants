@@ -8,22 +8,44 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Random;
 
-//Let's be productive
+/*
+TO DO :
+ - create option for num teams in GUI
+ - leave questions array but declare nothing, keep counter in while loop, and at the end initilise the array with the amount of questions.
+ - add code for team logos to contructor and init method.
+ - code teams class for if it has already been initilised, esientially just reading a file.
+ - create save files for the classes that can be read in after initilisation
+*/
 
 public class FractionsTeamsFOrms extends javax.swing.JFrame {
 
     
-    //VARIABLE DECLARATION
-    String [] students;
+    //===========================VARIABLE DECLARATION============================================
+    //=======General============
     Random gen = new Random();
     Color primary;
     Color secondary;
     boolean defaultColours = true;
+    //=============Students==============
+    String [] names;
+    Student [] students;
+    
     
     //======Questions=======
-    Question [] q = new Question[1000];
+    Question [] q = new Question[1000]; // arbitrary amout, how can I made a dynamic array size based on file reading?
     
-    //I/O STUFF
+    //=======Teams==========
+    boolean teamsInitd;
+    int numTeams = 2; //Can be modified at a later data
+    Team [] teams = new Team[numTeams];
+    int studPerTeam;
+    boolean randomTeams = true;
+    String [] teamName = new String [numTeams];
+    int [] totalScore = new int [numTeams];
+    String [][] members = new String[numTeams][studPerTeam+1];// the +1 gives us leeway with a potential uneven class
+    
+    
+    //======I/O STUFF=========
     FileReader fr;
     BufferedReader br;
     FileWriter fw;
@@ -91,7 +113,37 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         }
     }
     
-    public void readTeam(){
+    public void initTeam(){
+        //return to this when students array is done proper
+        studPerTeam = students.length/numTeams;
+        
+        if(!teamsInitd){
+            if(students.length%numTeams != 0){                                  // i.e. if the teams are not equally divided - there is a remainder
+                students[students.length-1].setTeam(gen.nextInt(numTeams));     //the last student will be put into a random team
+            }
+            else{                                                                  //otherwise, they are equal size and randomly distributed.
+                for(int i = 0; i < students.length; i++){
+                    students[i].setTeam(gen.nextInt(numTeams));
+                }
+            }
+            
+
+            for(int t = 0; t < teams.length; t++){
+                //The following code utilises 3 loops to fill the 2d array of team members. //THIS CAN BE CUT DOWN BY SORTING THE STUDENTS ARRAY BY TEAM
+                // it searches the stuends array for team number, then asigns it to the other loop t(for team) and the inner loop j(for members)
+                for(int i = 0; i < students.length; i++){
+                    if(students[i].getTeam()==t){
+                        for(int m = 0; m < studPerTeam; m++){
+                            members[t][m] = students[i].getName();
+                        }
+                    }
+                }
+
+                teams[t] = new Team(t, teamName[t], totalScore[t], members);
+            }
+            
+        }
+        
         
     }
     
@@ -99,17 +151,17 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         //=============READS IN STUDENT NAMES AND WRITES THEM TO FILE=========
         // This is only used once when the student names are initially set.
         //The names will then be read for them file this creates!
-        String[] students = studentsText.getText().split("\n");
+        names = studentsText.getText().split("\n");                             //this creates an array with a length of the number of new lines 
         try{
             File f2 = new File("class.txt");
             fw = new FileWriter(f2);
             bw = new BufferedWriter(fw);
 
-            bw.write(""+students.length);// this first line will we use to tell how many names there are when reading the file in later.
+            bw.write(""+names.length);                                          // this first line will we use to tell how many names there are when reading the file in later.
             bw.newLine();
             
-            for (int i= 0; i< students.length; i++){
-                bw.write(students[i]);  
+            for (int i= 0; i< names.length; i++){
+                bw.write(names[i]);  
                 bw.newLine();
             }
 
@@ -120,6 +172,8 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         catch(Exception e){
             e.printStackTrace();        
         }
+        //Once the names have been initilised, we call the next method which will store them properly in javas ram.
+        readStudentInfo();
         
     }
     
@@ -130,13 +184,13 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         br = new BufferedReader(fr);
         
         String line = br.readLine();
-        students = new String[(Integer.parseInt(line))+1]; // creates array with the number of students, this is given at the start of the file.
+        names = new String[(Integer.parseInt(line))+1]; // creates array with the number of names, this is given at the start of the file.
         //  I HAVE USED +1 TO AVOID INDEX OOB BY WHY IS IT HAPPENEING IN THE FIRST PLACE?
         
         int i =0;
         while(line!=null){
             line = br.readLine();
-            students[i] = line;
+            names[i] = line;
             i++;
         }
         br.close();
@@ -144,6 +198,12 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         }catch(Exception e){
             e.printStackTrace();
         }   
+        
+        //We will now create the student object with the names we read
+        for (int i = 0; i < names.length; i++){
+            students = new Student[names.length]; // declaring the array of student "remote controls"
+            students[i] = new Student(names[i]);  // actually creating an object for the array "remote control" to point at
+        }
     }
     
     public void setColours(){
