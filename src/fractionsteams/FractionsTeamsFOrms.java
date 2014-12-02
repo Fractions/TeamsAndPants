@@ -1,4 +1,3 @@
-
 package fractionsteams;
 
 import java.awt.Color;
@@ -21,7 +20,19 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     Color secondary;
     boolean defaultColours = true;
     
+    //======Questions=======
+    Question [] q = new Question[1000];
+    
+    //I/O STUFF
+    FileReader fr;
+    BufferedReader br;
+    FileWriter fw;
+    BufferedWriter bw;
+          
+    
   
+    
+    
     public FractionsTeamsFOrms() {
         initComponents(); // don't put anything before this!
         setColours();
@@ -34,6 +45,53 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         
         readStudentInfo();
         primeNumberGenerator();
+        readQuestions();
+        
+    }
+    
+    
+    public void readQuestions(){
+        /*The questions file will read as follows: 
+            questions text
+            answer
+            point value
+            difficulty. 
+        THIS MUST BE STICTLY ADHERED IN THE QUESTIONS FILE OTHERWISE MANY ERRORS WILL OCCUR
+       */
+        
+        try{
+        File g = new File("questions.txt");
+        fr = new FileReader(g);
+        br = new BufferedReader(fr);
+        
+        String line = br.readLine();
+        int i = 0;
+        
+            while(line!=null){
+                String fQ = line; // question from file
+
+                line = br.readLine();
+                String fA = line;  //answer from file
+
+                line = br.readLine();
+                int fP = Integer.parseInt(line);   // point value from file
+
+                line = br.readLine();
+                int fD = Integer.parseInt(line);   // dificulty from file
+
+                q[i] = new Question(fQ, fA, fP, fD);
+                i++;
+                line = br.readLine();
+                //System.out.println(""+line);
+            }
+                
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void readTeam(){
         
     }
     
@@ -44,8 +102,8 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         String[] students = studentsText.getText().split("\n");
         try{
             File f2 = new File("class.txt");
-            FileWriter fw = new FileWriter(f2);
-            BufferedWriter bw = new BufferedWriter(fw);
+            fw = new FileWriter(f2);
+            bw = new BufferedWriter(fw);
 
             bw.write(""+students.length);// this first line will we use to tell how many names there are when reading the file in later.
             bw.newLine();
@@ -68,8 +126,8 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     public void readStudentInfo(){
         try{
         File f = new File("class.txt");
-        FileReader fr = new FileReader(f);
-        BufferedReader br = new BufferedReader(fr);
+        fr = new FileReader(f);
+        br = new BufferedReader(fr);
         
         String line = br.readLine();
         students = new String[(Integer.parseInt(line))+1]; // creates array with the number of students, this is given at the start of the file.
@@ -150,6 +208,8 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fraction Interaction");
+        setMinimumSize(new java.awt.Dimension(1174, 539));
+        getContentPane().setLayout(null);
 
         readButton.setText("Read FIle");
         readButton.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +217,8 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
                 readButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(readButton);
+        readButton.setBounds(340, 470, 79, 23);
 
         colourButton.setText("Random Colour!");
         colourButton.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +226,8 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
                 colourButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(colourButton);
+        colourButton.setBounds(600, 150, 109, 23);
 
         studentButton.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         studentButton.setForeground(new java.awt.Color(51, 255, 51));
@@ -173,6 +237,8 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
                 studentButtonMouseClicked(evt);
             }
         });
+        getContentPane().add(studentButton);
+        studentButton.setBounds(10, 460, 253, 43);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Enter Student Names - One per line!");
@@ -215,40 +281,8 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
                 .addContainerGap(187, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(studentButton)
-                        .addGap(65, 65, 65)
-                        .addComponent(readButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(studentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 399, Short.MAX_VALUE)
-                .addComponent(colourButton))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(colourButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(16, Short.MAX_VALUE)
-                        .addComponent(studentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(studentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(readButton))
-                .addGap(24, 24, 24))
-        );
+        getContentPane().add(studentPanel);
+        studentPanel.setBounds(0, 0, 563, 450);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
