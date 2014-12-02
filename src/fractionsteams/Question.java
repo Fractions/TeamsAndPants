@@ -8,17 +8,19 @@ import java.io.FileReader;
 
 public class Question {
     
-    int pointValue; // The number of points 
-    int difficulty; // a range of ints, 0 being the easiest
     String qText; // the actual text of the question
     String answer; //should I make this an int? Nah. parse based on type of qustion. 
+    int pointValue; // The number of points 
+    int difficulty; // a range of ints, 0 being the easiest
+    
+    
 
    
-    public Question(int p, int d, String q, String a){
-        pointValue = p;
-        difficulty = d;
+    public Question(String q, String a, int p, int d){
         qText = q;
         answer = a;
+        pointValue = p;
+        difficulty = d;
     }
    
     
