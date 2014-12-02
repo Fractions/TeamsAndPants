@@ -103,7 +103,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     }
 
     public void primeNumberGenerator(){
-        // THIS IS NOT DONE... I haven't yet said which are true for prime!
+        // THIS IS NOT DONE... I haven't yet said which are true for prime!x
         //this is not necessary for program, just wanted to wrtie this in java and python
         
         
@@ -116,7 +116,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
       
         
         for(int i = 1; i < interval; i++){ //start at one since we know 0 is not prime
-            for(int j = 1; j < interval; j++){ // start at one since we can never divide by zero
+            for(int j = i; j > 0; j--){ // start at one since we can never divide by zero
                 //check if i is divisible by any number in the interval
                 if((i%j == 0)&&(i!=1)&&(i!=i)){
                     isPrime[i] = false;
