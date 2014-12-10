@@ -9,12 +9,12 @@ import java.io.FileWriter;
 import java.util.Random;
 
 /*
-TO DO :
- - create option for num teams in GUI
- - leave questions array but declare nothing, keep counter in while loop, and at the end initilise the array with the amount of questions.
- - add code for team logos to contructor and init method.
- - code teams class for if it has already been initilised, esientially just reading a file.
- - create save files for the classes that can be read in after initilisation
+*TO DO :
+ *- create option for num teams in GUI
+ *- leave questions array but declare nothing, keep counter in while loop, and at the end initilise the array with the amount of questions.
+ *- add code for team logos to contructor and init method.
+ *- code teams class for if it has already been initilised, esientially just reading a file.
+ *- create save files for the classes that can be read in after initilisation
 */
 
 public class FractionsTeamsFOrms extends javax.swing.JFrame {
@@ -33,11 +33,13 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     
     //======Questions=======
     Question [] q = new Question[1000]; // arbitrary amout, how can I made a dynamic array size based on file reading?
+
     
     //=======Teams==========
     boolean teamsInitd;
     int numTeams = 2; //Can be modified at a later data
     Team [] teams = new Team[numTeams];
+    int [] teamLevel = new int[numTeams];
     int studPerTeam;
     boolean randomTeams = true;
     String [] teamName = new String [numTeams];
@@ -87,7 +89,9 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         br = new BufferedReader(fr);
         
         String line = br.readLine();
-        int i = 0;
+        int qTal = 0;
+        
+        
         
             while(line!=null){
                 String fQ = line; // question from file
@@ -101,10 +105,13 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
                 line = br.readLine();
                 int fD = Integer.parseInt(line);   // dificulty from file
 
-                q[i] = new Question(fQ, fA, fP, fD);
-                i++;
+                q[qTal] = new Question(fQ, fA, fP, fD);
+                
+                System.out.println("The question is "+q[qTal].getqText());
+                qTal++;
                 line = br.readLine();
                 //System.out.println(""+line);
+               
             }
                 
         }
@@ -139,7 +146,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
                     }
                 }
 
-                teams[t] = new Team(t, teamName[t], totalScore[t], members);
+                teams[t] = new Team(t, teamName[t], totalScore[t], members, teamLevel[t]);
             }
             
         }
