@@ -15,7 +15,9 @@ import java.util.Random;
  *- add code for team logos to contructor and init method.
  *- code teams class for if it has already been initilised, esientially just reading a file.
  *- create save files for the classes that can be read in after initilisation
-*/
+ * - r: 190 g: 65 b: 99 ---> magenta
+ * - r: 28 g: 172 b: 239 ----> blue
+*/ 
 
 public class FractionsTeamsFOrms extends javax.swing.JFrame {
 
@@ -215,9 +217,10 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     
     public void setColours(){
         if(defaultColours == true){
-            primary = new Color(0, 0, 128);//find RGB for school colours. I think blue and gold.
-            secondary = new Color(128, 0, 0);
+            primary = new Color(190, 65, 99);//find RGB for school colours. I think blue and gold.
+            secondary = new Color(28, 172, 239);
         }
+        
         else{
             primary = new Color(gen.nextInt(256), gen.nextInt(256), gen.nextInt(256)); //  random for now, will change later.
             secondary = new Color(gen.nextInt(256), gen.nextInt(256), gen.nextInt(256));
