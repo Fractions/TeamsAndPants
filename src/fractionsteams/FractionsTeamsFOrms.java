@@ -65,7 +65,9 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         
         //panels!
         studentPanel.setVisible(false);
-        studentPanel.setBackground(secondary);
+        advPanel.setVisible(false);
+        teamPanel.setVisible(false);
+        
         
         // end panels
         
@@ -138,8 +140,9 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
             
 
             for(int t = 0; t < teams.length; t++){
-                //The following code utilises 3 loops to fill the 2d array of team members. //THIS CAN BE CUT DOWN BY SORTING THE STUDENTS ARRAY BY TEAM
+                //The following code utilises 3 loops to fill the 2d array of team members. //THIS CAN EASILY BE CUT DOWN, BUT NO TIME.
                 // it searches the stuends array for team number, then asigns it to the other loop t(for team) and the inner loop j(for members)
+                // This really is some of my worst code, but it works. Shameful.
                 for(int i = 0; i < students.length; i++){
                     if(students[i].getTeam()==t){
                         for(int m = 0; m < studPerTeam; m++){
@@ -228,6 +231,28 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
 
         //this.getContentPane().setForeground(primary); //what is the foregroud?
         this.getContentPane().setBackground(primary);
+        studentPanel.setBackground(secondary);
+        advPanel.setBackground(secondary);
+        teamPanel.setBackground(primary);
+        
+ 
+    }
+    
+    public void setTeamPanel(){
+        team0Name.setText(teams[0].getTeamName());
+        team0Name.setText(teams[0].getTeamName());
+        
+        level0.setText(""+teams[0].getLevel());
+        level1.setText(""+teams[1].getLevel());
+        
+        score0.setText(""+teams[0].getTotalScore());
+        score1.setText(""+teams[1].getTotalScore());
+        
+        // bad
+        //members0.setText(teams[0].getMembers());
+        
+        
+        
     }
 
     public void primeNumberGenerator(){
@@ -267,28 +292,46 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        readButton = new javax.swing.JButton();
         colourButton = new javax.swing.JButton();
         studentButton = new javax.swing.JLabel();
+        advButton = new javax.swing.JButton();
+        advPanel = new javax.swing.JPanel();
+        readButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         studentPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentsText = new javax.swing.JTextArea();
         saveStudentButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        teamPanel = new javax.swing.JPanel();
+        team1 = new javax.swing.JLabel();
+        team0 = new javax.swing.JLabel();
+        team0Name = new javax.swing.JLabel();
+        team1Name = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        score1 = new javax.swing.JLabel();
+        score0 = new javax.swing.JLabel();
+        level1 = new javax.swing.JLabel();
+        level0 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        members1 = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        members0 = new javax.swing.JTextArea();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fraction Interaction");
-        setMinimumSize(new java.awt.Dimension(1174, 539));
+        setMinimumSize(new java.awt.Dimension(1174, 700));
+        setPreferredSize(new java.awt.Dimension(980, 700));
         getContentPane().setLayout(null);
-
-        readButton.setText("Read FIle");
-        readButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                readButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(readButton);
-        readButton.setBounds(340, 470, 79, 23);
 
         colourButton.setText("Random Colour!");
         colourButton.addActionListener(new java.awt.event.ActionListener() {
@@ -297,7 +340,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
             }
         });
         getContentPane().add(colourButton);
-        colourButton.setBounds(600, 150, 109, 23);
+        colourButton.setBounds(20, 540, 109, 23);
 
         studentButton.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         studentButton.setForeground(new java.awt.Color(51, 255, 51));
@@ -309,6 +352,52 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         });
         getContentPane().add(studentButton);
         studentButton.setBounds(10, 460, 253, 43);
+
+        advButton.setText("Advanced Settings");
+        advButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                advButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(advButton);
+        advButton.setBounds(550, 510, 150, 50);
+
+        readButton.setText("Read Student Info ");
+        readButton.setToolTipText("Manually read changes to the student file. Necesary if you have modified it manually.");
+        readButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Mouse over buttons for information!");
+
+        javax.swing.GroupLayout advPanelLayout = new javax.swing.GroupLayout(advPanel);
+        advPanel.setLayout(advPanelLayout);
+        advPanelLayout.setHorizontalGroup(
+            advPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(advPanelLayout.createSequentialGroup()
+                .addGroup(advPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(advPanelLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(advPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(readButton)))
+                .addContainerGap(387, Short.MAX_VALUE))
+        );
+        advPanelLayout.setVerticalGroup(
+            advPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(advPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(readButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(337, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(advPanel);
+        advPanel.setBounds(350, 40, 630, 400);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Enter Student Names - One per line!");
@@ -324,35 +413,151 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Close");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout studentPanelLayout = new javax.swing.GroupLayout(studentPanel);
         studentPanel.setLayout(studentPanelLayout);
         studentPanelLayout.setHorizontalGroup(
             studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(studentPanelLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addContainerGap()
                 .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
                     .addGroup(studentPanelLayout.createSequentialGroup()
                         .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(saveStudentButton)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(studentPanelLayout.createSequentialGroup()
+                                .addComponent(saveStudentButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         studentPanelLayout.setVerticalGroup(
             studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(studentPanelLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(saveStudentButton)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveStudentButton)
+                    .addComponent(jButton1))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         getContentPane().add(studentPanel);
-        studentPanel.setBounds(0, 0, 563, 450);
+        studentPanel.setBounds(30, 130, 310, 240);
+
+        teamPanel.setLayout(null);
+
+        team1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/l1.png"))); // NOI18N
+        teamPanel.add(team1);
+        team1.setBounds(384, 107, 162, 140);
+
+        team0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sadf.png"))); // NOI18N
+        teamPanel.add(team0);
+        team0.setBounds(141, 89, 138, 150);
+
+        team0Name.setText("Team Name");
+        teamPanel.add(team0Name);
+        team0Name.setBounds(150, 44, 80, 27);
+
+        team1Name.setText("Team Name");
+        teamPanel.add(team1Name);
+        team1Name.setBounds(384, 44, 80, 27);
+
+        jLabel3.setText("Level:");
+        teamPanel.add(jLabel3);
+        jLabel3.setBounds(10, 322, 61, 24);
+
+        jLabel4.setText("Total Score: ");
+        teamPanel.add(jLabel4);
+        jLabel4.setBounds(10, 280, 61, 24);
+
+        jLabel6.setText("Members:");
+        teamPanel.add(jLabel6);
+        jLabel6.setBounds(10, 372, 47, 24);
+
+        score1.setText("0000");
+        teamPanel.add(score1);
+        score1.setBounds(384, 280, 101, 24);
+
+        score0.setText("0000");
+        teamPanel.add(score0);
+        score0.setBounds(141, 280, 90, 24);
+
+        level1.setText("0000");
+        teamPanel.add(level1);
+        level1.setBounds(384, 322, 90, 24);
+
+        level0.setText("0000");
+        teamPanel.add(level0);
+        level0.setBounds(141, 322, 90, 24);
+
+        members1.setBackground(new java.awt.Color(240, 240, 240));
+        members1.setColumns(20);
+        members1.setRows(5);
+        jScrollPane2.setViewportView(members1);
+
+        teamPanel.add(jScrollPane2);
+        jScrollPane2.setBounds(384, 372, 138, 96);
+
+        members0.setBackground(new java.awt.Color(240, 240, 240));
+        members0.setColumns(20);
+        members0.setRows(5);
+        jScrollPane3.setViewportView(members0);
+
+        teamPanel.add(jScrollPane3);
+        jScrollPane3.setBounds(141, 372, 138, 96);
+
+        jLabel10.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(28, 172, 239));
+        jLabel10.setText("E");
+        teamPanel.add(jLabel10);
+        jLabel10.setBounds(10, 60, 30, 50);
+
+        jLabel11.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(28, 172, 239));
+        jLabel11.setText("S");
+        teamPanel.add(jLabel11);
+        jLabel11.setBounds(10, 210, 30, 50);
+
+        jLabel12.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(28, 172, 239));
+        jLabel12.setText("A");
+        teamPanel.add(jLabel12);
+        jLabel12.setBounds(10, 110, 30, 50);
+
+        jLabel13.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(28, 172, 239));
+        jLabel13.setText("T");
+        teamPanel.add(jLabel13);
+        jLabel13.setBounds(10, 10, 30, 50);
+
+        jLabel14.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(28, 172, 239));
+        jLabel14.setText("M");
+        teamPanel.add(jLabel14);
+        jLabel14.setBounds(10, 160, 30, 50);
+
+        getContentPane().add(teamPanel);
+        teamPanel.setBounds(470, 570, 556, 539);
+
+        jButton2.setText("Teams");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(360, 510, 73, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -375,6 +580,18 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         studentPanel.setVisible(true);
         studentPanel.requestFocusInWindow();
     }//GEN-LAST:event_studentButtonMouseClicked
+
+    private void advButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advButtonActionPerformed
+        advPanel.setVisible(false);
+    }//GEN-LAST:event_advButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        studentPanel.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        teamPanel.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,13 +628,39 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton advButton;
+    private javax.swing.JPanel advPanel;
     private javax.swing.JButton colourButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel level0;
+    private javax.swing.JLabel level1;
+    private javax.swing.JTextArea members0;
+    private javax.swing.JTextArea members1;
     private javax.swing.JButton readButton;
     private javax.swing.JButton saveStudentButton;
+    private javax.swing.JLabel score0;
+    private javax.swing.JLabel score1;
     private javax.swing.JLabel studentButton;
     private javax.swing.JPanel studentPanel;
     private javax.swing.JTextArea studentsText;
+    private javax.swing.JLabel team0;
+    private javax.swing.JLabel team0Name;
+    private javax.swing.JLabel team1;
+    private javax.swing.JLabel team1Name;
+    private javax.swing.JPanel teamPanel;
     // End of variables declaration//GEN-END:variables
 }
