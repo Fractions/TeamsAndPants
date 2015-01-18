@@ -9,6 +9,9 @@ public class Student {
     //contructor with just names - i.e. teams not yet initilised.
     public Student(String n){
         name = n;
+        team = -1;
+        totalScore = -1;  
+        System.out.println("student "+name+" created");
     }
     
     //full constructor

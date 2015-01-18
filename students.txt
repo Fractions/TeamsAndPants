@@ -1,0 +1,2 @@
+1
+ System.out.println("The members are: "+teams[t].getMembers()[i]);
