@@ -28,25 +28,22 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     Color primary;
     Color secondary;
     boolean defaultColours = true;
+    
     //=============Students==============
     String [] names;
-    Student [] students;
+    Student [] student;
     
     
     //======Questions=======
-    Question [] q = new Question[1000]; // arbitrary amout, how can I made a dynamic array size based on file reading?
+    Question [] q = new Question[1000]; // arbitrary amout
 
     
     //=======Teams==========
     boolean teamsInitd;
-    int numTeams = 2; //Can be modified at a later data
+    int numTeams = 2; //Can be modified at a later date
     Team [] teams = new Team[numTeams];
-    int [] teamLevel = new int[numTeams];
-    int studPerTeam;
-    boolean randomTeams = true;
-    String [] teamName = new String [numTeams];
-    int [] totalScore = new int [numTeams];
-    String [][] members = new String[numTeams][studPerTeam+1];// the +1 gives us leeway with a potential uneven class
+    
+    //boolean randTeams;
     
     
     //======I/O STUFF=========
@@ -72,7 +69,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         // end panels
         
         readStudentInfo();
-        primeNumberGenerator();
+        //primeNumberGenerator();
         readQuestions();
         
     }
@@ -125,37 +122,74 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     }
     
     public void initTeam(){
-        //return to this when students array is done proper
-        studPerTeam = students.length/numTeams;
+        int  teamLevel = -1;
+        int studPerTeam = student.length/numTeams;
+        System.out.println("number of students:" + student.length+" students per team: "+studPerTeam);
+        boolean randomTeams = true;
+        String teamName = ""+-1;
+        int  totalScore = -1;
+        Student [] members = new Student[(studPerTeam)+1]; // the +1 gives us leeway with a potential uneven class
+        int memTal = 0;
+         
         
-        if(!teamsInitd){
-            if(students.length%numTeams != 0){                                  // i.e. if the teams are not equally divided - there is a remainder
-                students[students.length-1].setTeam(gen.nextInt(numTeams));     //the last student will be put into a random team
-            }
-            else{                                                                  //otherwise, they are equal size and randomly distributed.
-                for(int i = 0; i < students.length; i++){
-                    students[i].setTeam(gen.nextInt(numTeams));
-                }
-            }
-            
 
+        
+        
+         //lets randomly fill the teams...
+        if(!teamsInitd){
+//            if(students.length%numTeams != 0){                                  // i.e. if the teams are not equally divided - there is a remainder
+//                students[students.length-1].setTeam(gen.nextInt(numTeams));     //the last student will be put into a random team
+//            }
+//            else{                                                                  //otherwise, they are equal size and randomly distributed.
+                for(int i = 0; i < student.length; i++){
+                    System.out.println(student[i].getName());
+                    student[i].setTeam(gen.nextInt(numTeams));
+                }
+            
+            
+            //Now lets create the team object...
             for(int t = 0; t < teams.length; t++){
-                //The following code utilises 3 loops to fill the 2d array of team members. //THIS CAN EASILY BE CUT DOWN, BUT NO TIME.
-                // it searches the stuends array for team number, then asigns it to the other loop t(for team) and the inner loop j(for members)
-                // This really is some of my worst code, but it works. Shameful.
-                for(int i = 0; i < students.length; i++){
-                    if(students[i].getTeam()==t){
-                        for(int m = 0; m < studPerTeam; m++){
-                            members[t][m] = students[i].getName();
-                        }
+                if(t == 0){
+                    teamName = "Team Linux";
+                    totalScore = 0; // will be read from file later
+                    teamLevel = 0;
+                }
+                if(t == 1){
+                    teamName = "Team Ooo";
+                    totalScore = 0; // will be read from file later
+                    teamLevel = 0;
+                }
+
+                for(int i = 0; i < student.length; i++){
+                    if(student[i].getTeam()==t){
+                        members [memTal] = student[i];
+                        //System.out.println("the student is "+student[i].getName());
+                        //System.out.println("the member is "+members[memTal].getName());
+                        memTal++;
                     }
                 }
 
-                teams[t] = new Team(t, teamName[t], totalScore[t], members, teamLevel[t]);
+                teams[t] = new Team(t, teamName, totalScore, members, teamLevel);
+                //the to string doesnt work properly... fix if more time!
+                //System.out.println("the member from the team object is: "+teams[t].getMembers()[memTal-1].getName());
+                
+                //resetting the values for the next team
+                memTal = 0;
+                teamName = null;
+                totalScore =0;
+                members = null;
+                members = new Student[(studPerTeam)+1];
+                teamLevel = 0;
             }
+
+            
+            
             
         }
+        teamsInitd = true;
         
+        //System.out.println(teams[0]);
+
         
     }
     
@@ -163,9 +197,15 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         //=============READS IN STUDENT NAMES AND WRITES THEM TO FILE=========
         // This is only used once when the student names are initially set.
         //The names will then be read for them file this creates!
+        
+        //first we will remove the already made students...
+        names = null;
+        student = null;
+        
+        
         names = studentsText.getText().split("\n");                             //this creates an array with a length of the number of new lines 
         try{
-            File f2 = new File("class.txt");
+            File f2 = new File("students.txt");
             fw = new FileWriter(f2);
             bw = new BufferedWriter(fw);
 
@@ -180,43 +220,47 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
             
             System.out.println("The students file has been initilialised!");
             bw.close();
-        }
+        }   
         catch(Exception e){
             e.printStackTrace();        
         }
         //Once the names have been initilised, we call the next method which will store them properly in javas ram.
         readStudentInfo();
+        initTeam();
         
     }
     
     public void readStudentInfo(){
         try{
-        File f = new File("class.txt");
+        File f = new File("students.txt");
         fr = new FileReader(f);
         br = new BufferedReader(fr);
         
         String line = br.readLine();
-        names = new String[(Integer.parseInt(line))+1]; // creates array with the number of names, this is given at the start of the file.
-        //  I HAVE USED +1 TO AVOID INDEX OOB BY WHY IS IT HAPPENEING IN THE FIRST PLACE?
+        names = new String[(Integer.parseInt(line))]; // creates array with the number of names, this is given at the start of the file.
+        student = new Student[(Integer.parseInt(line))]; // creates an array of "pointers"
+        line = br.readLine();
         
         int i =0;
         while(line!=null){
-            line = br.readLine();
-            names[i] = line;
+            names[i] = line; // the name of the student from the line
+            student[i] = new Student(names[i]); // creates an actual object for the pointer
             i++;
+            line = br.readLine();
         }
         br.close();
+        
+
         
         }catch(Exception e){
             e.printStackTrace();
         }   
         
-        //We will now create the student object with the names we read
-        for (int i = 0; i < names.length; i++){
-            students = new Student[names.length]; // declaring the array of student "remote controls"
-            students[i] = new Student(names[i]);  // actually creating an object for the array "remote control" to point at
-        }
+
+        System.out.println("Student info read... ");
+        
     }
+    
     
     public void setColours(){
         if(defaultColours == true){
@@ -287,6 +331,50 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         
         
     }
+    
+    public void readTeams(){
+        //do all the code here
+        teamsInitd = true;
+    }
+    
+    public void saveGame(){
+        try{
+            File f3 = new File("teams.txt");
+            FileWriter fw3 = new FileWriter(f3);
+            BufferedWriter bw3 = new BufferedWriter(fw3);
+            
+            if(teamsInitd){
+                for(int t = 0; t < numTeams; t++){
+                    bw3.write(teams[t].getTeamNum());
+                    bw3.write(teams[t].getTeamName());
+                    bw3.write(teams[t].getTotalScore());
+                    for(int i = 0; i < teams[t].getMembers().length; i++){
+                        bw3.write(teams[t].getMembers()[i].getName());
+                        bw3.write(teams[t].getMembers()[i].getTeam());
+                        bw3.write(teams[t].getMembers()[i].getTotalScore());
+                    }
+                    bw3.write(teams[t].getLevel());
+                }
+                System.out.println("team info saved to file");
+            }
+            bw3.close();
+
+            /*
+ ▲
+▲ ▲
+            teamNum = t;
+        teamName = tn;
+        totalScore = s;
+        members = m;
+        level = l;
+            */
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+
+    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -326,6 +414,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fraction Interaction");
@@ -455,6 +544,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         getContentPane().add(studentPanel);
         studentPanel.setBounds(30, 130, 310, 240);
 
+        teamPanel.setMinimumSize(new java.awt.Dimension(800, 600));
         teamPanel.setLayout(null);
 
         team1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/l1.png"))); // NOI18N
@@ -548,7 +638,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
         jLabel14.setBounds(10, 160, 30, 50);
 
         getContentPane().add(teamPanel);
-        teamPanel.setBounds(470, 570, 556, 539);
+        teamPanel.setBounds(40, 600, 800, 600);
 
         jButton2.setText("Teams");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -557,7 +647,16 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(360, 510, 73, 23);
+        jButton2.setBounds(410, 510, 73, 23);
+
+        jButton3.setText("save game");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3);
+        jButton3.setBounds(390, 550, 85, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -592,6 +691,10 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         teamPanel.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        saveGame();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -633,6 +736,7 @@ public class FractionsTeamsFOrms extends javax.swing.JFrame {
     private javax.swing.JButton colourButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
